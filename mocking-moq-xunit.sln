@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCardApplications", "CreditCardApplications\CreditCardApplications.csproj", "{DBB5036A-E59F-4094-9B2C-C7CD6FC8485B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCardApplications.Tests", "CreditCardApplications.Tests\CreditCardApplications.Tests.csproj", "{AF618D7E-919B-4340-8FFF-4DF26A25F89B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{DBB5036A-E59F-4094-9B2C-C7CD6FC8485B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBB5036A-E59F-4094-9B2C-C7CD6FC8485B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBB5036A-E59F-4094-9B2C-C7CD6FC8485B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF618D7E-919B-4340-8FFF-4DF26A25F89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF618D7E-919B-4340-8FFF-4DF26A25F89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF618D7E-919B-4340-8FFF-4DF26A25F89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF618D7E-919B-4340-8FFF-4DF26A25F89B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
