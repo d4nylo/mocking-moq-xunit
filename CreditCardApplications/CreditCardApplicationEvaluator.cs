@@ -10,7 +10,7 @@ public class CreditCardApplicationEvaluator
 
     public CreditCardApplicationEvaluator(IFrequentFlyerNumberValidator validator)
     {
-        _validator = validator;
+        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     }
 
     public CreditCardApplicationDecision Evaluate(CreditCardApplication application)
