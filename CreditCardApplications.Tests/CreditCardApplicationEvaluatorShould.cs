@@ -38,7 +38,35 @@ public class CreditCardApplicationEvaluatorShould
     {
         var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
 
-        mockValidator.Setup(x => x.IsValid("x")).Returns(true);
+        // # If the frequentFlyerNumber passed to IsValid is equal to "x"
+        // mockValidator
+        //     .Setup(x => x.IsValid("x"))
+        //     .Returns(true);
+
+        // # If the frequentFlyerNumber passed to IsValid is any string
+        // mockValidator
+        //     .Setup(x => x.IsValid(It.IsAny<string>()))
+        //     .Returns(true);
+
+        // # If the frequentFlyerNumber passed to IsValid starts with "y"
+        // mockValidator
+        //     .Setup(x => x.IsValid(It.Is<string>(number => number.StartsWith("y"))))
+        //     .Returns(true);
+
+        // # If the frequentFlyerNumber passed to IsValid is between "a" and "z" (inclusive)
+        // mockValidator
+        //     .Setup(x => x.IsValid(It.IsInRange("a", "z", Range.Inclusive)))
+        //     .Returns(true);
+
+        // # If the frequentFlyerNumber passed to IsValid is "x", "y", or "z"
+        // mockValidator
+        //     .Setup(x => x.IsValid(It.IsIn("x", "y", "z")))
+        //     .Returns(true);
+
+        // # If the frequentFlyerNumber passed to IsValid matches the regular expression "[a-z]"
+        mockValidator
+            .Setup(x => x.IsValid(It.IsRegex("[a-z]")))
+            .Returns(true);
 
         var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
