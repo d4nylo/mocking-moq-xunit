@@ -6,9 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Compile Remove="FrequentFlyerNumberValidator.cs" />
-      <Compile Remove="IFrequentFlyerNumberValidator.cs" />
-    </ItemGroup>
-
 </Project>

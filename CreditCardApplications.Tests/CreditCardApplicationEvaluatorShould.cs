@@ -7,7 +7,7 @@ public class CreditCardApplicationEvaluatorShould
     [Fact]
     public void AcceptHighIncomeApplications()
     {
-        var sut = new CreditCardApplicationEvaluator();
+        var sut = new CreditCardApplicationEvaluator(null);
 
         var application = new CreditCardApplication() {GrossAnnualIncome = 100_000};
 
@@ -19,7 +19,7 @@ public class CreditCardApplicationEvaluatorShould
     [Fact]
     public void ReferYoungApplications()
     {
-        var sut = new CreditCardApplicationEvaluator();
+        var sut = new CreditCardApplicationEvaluator(null);
 
         var application = new CreditCardApplication() {Age = 19};
 
