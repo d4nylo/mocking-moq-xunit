@@ -81,4 +81,22 @@ public class CreditCardApplicationEvaluatorShould
 
         Assert.Equal(CreditCardApplicationDecision.AutoDeclined, decision);
     }
+
+    [Fact]
+    public void ReferInvalidFrequentFlyerApplication()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>(MockBehavior.Strict);
+
+        mockValidator
+            .Setup(x => x.IsValid(It.IsAny<string>()))
+            .Returns(false);
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication();
+
+        var decision = sut.Evaluate(application);
+
+        Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
+    }
 }
