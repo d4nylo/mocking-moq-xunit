@@ -32,4 +32,25 @@ public class CreditCardApplicationEvaluatorShould
 
         Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
     }
+
+    [Fact]
+    public void DeclineLowIncomeApplications()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        mockValidator.Setup(x => x.IsValid("x")).Returns(true);
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication()
+        {
+            GrossAnnualIncome = 19_999,
+            Age = 42,
+            FrequentFlyerNumber = "y"
+        };
+
+        var decision = sut.Evaluate(application);
+
+        Assert.Equal(CreditCardApplicationDecision.AutoDeclined, decision);
+    }
 }
