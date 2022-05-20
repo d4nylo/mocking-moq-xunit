@@ -39,4 +39,31 @@ public class CreditCardApplicationEvaluator
 
         return CreditCardApplicationDecision.ReferredToHuman;
     }
+
+    public CreditCardApplicationDecision EvaluateUsingOut(CreditCardApplication application)
+    {
+        if (application.GrossAnnualIncome >= HighIncomeThreshold)
+        {
+            return CreditCardApplicationDecision.AutoAccepted;
+        }
+
+        _validator.IsValid(application.FrequentFlyerNumber, out var isValidFrequentFlyerNumber);
+
+        if (!isValidFrequentFlyerNumber)
+        {
+            return CreditCardApplicationDecision.ReferredToHuman;
+        }
+
+        if (application.Age <= AutoReferralMaxAge)
+        {
+            return CreditCardApplicationDecision.ReferredToHuman;
+        }
+
+        if (application.GrossAnnualIncome < LowIncomeThreshold)
+        {
+            return CreditCardApplicationDecision.AutoDeclined;
+        }
+
+        return CreditCardApplicationDecision.ReferredToHuman;
+    }
 }

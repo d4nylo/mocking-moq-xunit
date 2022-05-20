@@ -103,4 +103,27 @@ public class CreditCardApplicationEvaluatorShould
 
         Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
     }
+
+    [Fact]
+    public void DeclineLowIncomeApplicationsOutDemo()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        // Value we want to return from the mocked method that has the out parameter.
+        var isValid = true;
+        mockValidator
+            .Setup(x => x.IsValid(It.IsAny<string>(), out isValid));
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication()
+        {
+            GrossAnnualIncome = 19_999,
+            Age = 42
+        };
+
+        var decision = sut.EvaluateUsingOut(application);
+
+        Assert.Equal(CreditCardApplicationDecision.AutoDeclined, decision);
+    }
 }
