@@ -24,6 +24,10 @@ public class CreditCardApplicationEvaluatorShould
     {
         var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
 
+        mockValidator
+            .Setup(x => x.IsValid(It.IsAny<string>()))
+            .Returns(true);
+
         var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
         var application = new CreditCardApplication() {Age = 19};
