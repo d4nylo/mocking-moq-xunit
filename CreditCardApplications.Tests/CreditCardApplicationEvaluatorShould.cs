@@ -136,9 +136,13 @@ public class CreditCardApplicationEvaluatorShould
             .Setup(x => x.IsValid(It.IsAny<string>()))
             .Returns(true);
 
+        // mockValidator
+        //     .Setup(x => x.LicenseKey)
+        //     .Returns("EXPIRED");
+
         mockValidator
             .Setup(x => x.LicenseKey)
-            .Returns("EXPIRED");
+            .Returns(GetLicenseKeyExpiryString);
 
         var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
@@ -147,5 +151,11 @@ public class CreditCardApplicationEvaluatorShould
         var decision = sut.Evaluate(application);
 
         Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
+    }
+
+    string GetLicenseKeyExpiryString()
+    {
+        // Ex. Read from vendor-supplied constants file
+        return "EXPIRED";
     }
 }
