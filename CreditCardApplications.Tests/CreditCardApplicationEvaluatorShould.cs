@@ -89,7 +89,7 @@ public class CreditCardApplicationEvaluatorShould
     [Fact]
     public void ReferInvalidFrequentFlyerApplication()
     {
-        var mockValidator = new Mock<IFrequentFlyerNumberValidator>(MockBehavior.Strict);
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>(MockBehavior.Loose);
 
         mockValidator
             .Setup(x => x.IsValid(It.IsAny<string>()))
@@ -125,5 +125,27 @@ public class CreditCardApplicationEvaluatorShould
         var decision = sut.EvaluateUsingOut(application);
 
         Assert.Equal(CreditCardApplicationDecision.AutoDeclined, decision);
+    }
+
+    [Fact]
+    public void ReferWhenLicenceKeyExpired()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        mockValidator
+            .Setup(x => x.IsValid(It.IsAny<string>()))
+            .Returns(true);
+
+        mockValidator
+            .Setup(x => x.LicenseKey)
+            .Returns("EXPIRED");
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication {Age = 42};
+
+        var decision = sut.Evaluate(application);
+
+        Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
     }
 }
