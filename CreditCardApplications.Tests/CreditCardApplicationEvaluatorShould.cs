@@ -24,6 +24,8 @@ public class CreditCardApplicationEvaluatorShould
     {
         var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
 
+        mockValidator.DefaultValue = DefaultValue.Mock;
+
         mockValidator
             .Setup(x => x.IsValid(It.IsAny<string>()))
             .Returns(true);
@@ -41,6 +43,10 @@ public class CreditCardApplicationEvaluatorShould
     public void DeclineLowIncomeApplications()
     {
         var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        mockValidator
+            .Setup(x => x.ServiceInformation.License.LicenseKey)
+            .Returns("OK");
 
         // # If the frequentFlyerNumber passed to IsValid is equal to "x"
         // mockValidator
@@ -90,6 +96,10 @@ public class CreditCardApplicationEvaluatorShould
     public void ReferInvalidFrequentFlyerApplication()
     {
         var mockValidator = new Mock<IFrequentFlyerNumberValidator>(MockBehavior.Loose);
+
+        mockValidator
+            .Setup(x => x.ServiceInformation.License.LicenseKey)
+            .Returns("OK");
 
         mockValidator
             .Setup(x => x.IsValid(It.IsAny<string>()))
