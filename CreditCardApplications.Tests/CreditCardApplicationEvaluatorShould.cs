@@ -201,4 +201,27 @@ public class CreditCardApplicationEvaluatorShould
         // Ex. Read from vendor-supplied constants file
         return "EXPIRED";
     }
+
+    [Fact]
+    public void UseDetailedLookupForOlderApplications()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        // mockValidator.SetupProperty(x => x.ValidationMode);
+
+        // Gotcha: Call it before making any specific property setups (because this will override them).
+        mockValidator.SetupAllProperties();
+
+        mockValidator
+            .Setup(x => x.ServiceInformation.License.LicenseKey)
+            .Returns("OK");
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication {Age = 30};
+
+        sut.Evaluate(application);
+
+        Assert.Equal(ValidationMode.Detailed, mockValidator.Object.ValidationMode);
+    }
 }
