@@ -290,4 +290,36 @@ public class CreditCardApplicationEvaluatorShould
             Times.Once
         );
     }
+
+    [Fact]
+    public void SetDetailedLookupForOlderApplications()
+    {
+        var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+        mockValidator
+            .Setup(x => x.ServiceInformation.License.LicenseKey)
+            .Returns("OK");
+
+        var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+        var application = new CreditCardApplication {Age = 30};
+
+        sut.Evaluate(application);
+
+        // mockValidator.VerifySet(
+        //     x => x.ValidationMode = ValidationMode.Detailed
+        // );
+
+        mockValidator.VerifySet(
+            x => x.ValidationMode = It.IsAny<ValidationMode>(),
+            Times.Once
+        );
+
+        // mockValidator.Verify(
+        //     x => x.IsValid(null),
+        //     Times.Once
+        // );
+        //
+        // mockValidator.VerifyNoOtherCalls();
+    }
 }
