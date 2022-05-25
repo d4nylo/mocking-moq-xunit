@@ -21,4 +21,6 @@ public interface IFrequentFlyerNumberValidator
     IServiceInformation ServiceInformation { get; }
 
     ValidationMode ValidationMode { get; set; }
+
+    event EventHandler ValidatorLookupPerformed;
 }
